@@ -7,14 +7,15 @@
         <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
         <a class="btn btn-large btn-success" href="#">Get started today</a>
       </div>
+
+      <hr>
       
     {% endblock %}
       
       
     {% block content %}
-      
-      {% for product in products %}
-        {% cycle '<div class="row"></div>' '' '' '' %}
+
+        {% cycle '<div class=>' '' '' '' %}
         <div class="span3">
           {% for image in product.productimage_set.all %}
           {% if forloop.first %}
@@ -25,7 +26,12 @@
           <p>{{ product.description }}</p>
           <h4>${{ product.price }} Fairy Qits</h4>
         </div>
-        {% cycle '' '' '' '</div>' %}
+
+        {% if forloop.counter|divisibleby:4 %}
+          </div> <hr>
+          <div class="row-fluid">
+
+        {% endif%}
 
       {% endfor %}
       
