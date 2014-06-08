@@ -7,7 +7,7 @@ class Contact(models.Model):
     message = models.CharField(max_length=500)
     timestamp = models.DateTimeField(auto_now_add=True)
     
-    def __unicode__(self, ):
+    def __unicode__(self):
         return "Message from: " + str(self.email)
     
     
