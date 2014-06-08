@@ -15,6 +15,7 @@ class Migration(SchemaMigration):
             ('description', self.gf('django.db.models.fields.CharField')(max_length=3000, null=True, blank=True)),
             ('price', self.gf('django.db.models.fields.DecimalField')(null=True, max_digits=1000, decimal_places=2, blank=True)),
             ('slug', self.gf('django.db.models.fields.SlugField')(max_length=50)),
+            ('active', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
             ('updated', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
         ))
@@ -43,6 +44,7 @@ class Migration(SchemaMigration):
     models = {
         u'products.product': {
             'Meta': {'object_name': 'Product'},
+            'active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'description': ('django.db.models.fields.CharField', [], {'max_length': '3000', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'price': ('django.db.models.fields.DecimalField', [], {'null': 'True', 'max_digits': '1000', 'decimal_places': '2', 'blank': 'True'}),
