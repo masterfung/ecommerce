@@ -3,16 +3,26 @@
     {% block jumbotron %}
       <!-- Jumbotron -->
       <div class="jumbotron">
-        <h1>Products Arrived</h1>
+        <h1>Enchanted Products</h1>
         <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
         <a class="btn btn-large btn-success" href="#">Get started today</a>
       </div>
       
-      {% endblock %}
+    {% endblock %}
       
       
-      {% block content %}
+    {% block content %}
       
-      {{ products }}
+      {% for product in products %}
+        <div class="span3">
+          {% for image in product.productimage_set.all %}
+            <img src="{{ MEDIA_URL }}{{ image }}" alt="">
+          {% endfor %}
+          <h3>{{product}}</h3>
+          <p>{{product.description}}</p>
+          <h4>${{product.price}} Fairy Qits</h4>
+        </div>
+
+      {% endfor %}
       
-      {% endblock %}
+    {% endblock %}

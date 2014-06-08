@@ -31,28 +31,30 @@
     <div class="container">
 
       <div class="masthead">
-        <h3 class="muted">Project name</h3>
+        <h3 class="muted">Enchanted</h3>
         {% include 'navbar.html' %}
 
       </div>    
 
-      {% block jumbotron %}
-      
-      {% endblock %}
+        {% block jumbotron %}
+        
+        {% endblock %}
 
 
       <hr>
 
       <!-- Example row of columns -->
        <div class="row-fluid">
-      {% block content %}
-      {% endblock %}
+        {% block content %}
+        {% endblock %}
        </div>
     
-      </div>
+      
 
       <hr>
-       {% include 'footer.html' %}
+      <div class="row-fluid">
+        {% include 'footer.html' %}
+      </div>
 
 
     </div> <!-- /container -->

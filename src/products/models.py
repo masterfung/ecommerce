@@ -13,6 +13,9 @@ class Product(models.Model):
     
     def __unicode__(self):
         return self.title
+
+    class Meta:
+        ordering = ['-title',]
     
 class ProductImage(models.Model):
     product = models.ForeignKey(Product)
@@ -23,4 +26,4 @@ class ProductImage(models.Model):
     
     
     def __unicode__(self):
-        return str(self.product.title) + " " + str(self.image)
+        return self.image
