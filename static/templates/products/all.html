@@ -3,36 +3,37 @@
     {% block jumbotron %}
       <!-- Jumbotron -->
       <div class="jumbotron">
-        <h1>Enchanted Products</h1>
+        <h1>Products Arrived</h1>
         <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
         <a class="btn btn-large btn-success" href="#">Get started today</a>
       </div>
-
-      <hr>
-      
-    {% endblock %}
       
       
-    {% block content %}
-
-        {% cycle '<div class=>' '' '' '' %}
-        <div class="span3">
-          {% for image in product.productimage_set.all %}
-          {% if forloop.first %}
-            <img src="{{ MEDIA_URL }}{{ image }}" alt="">
+      {% endblock %}
+      
+      
+      {% block content %}
+      
+          
+      {% for product in products %}
+      
+        <div class='span3'>
+          
+          <h3><a href='{% url "products" %}{{ product.slug }}'>{{ product }}</a></h3>
+                    {% for image in product.productimage_set.all %}
+                      {% if forloop.first %}
+            <a href='{% url "products" %}{{ product.slug }}'><img src='{{ MEDIA_URL }}{{ image }}'/></a>
             {% endif %}
-          {% endfor %}
-          <h3><a href="{% url 'products' %}{{product.slug}}">{{ product }}</a></h3>
-          <p>{{ product.description }}</p>
-          <h4>${{ product.price }} Fairy Qits</h4>
+            {% endfor %}
+          {{ product.description|truncatewords:10 }}<br/>
+          {{ product.price }}
+
+          
         </div>
-
         {% if forloop.counter|divisibleby:4 %}
-          </div> <hr>
-          <div class="row-fluid">
+                    </div> <hr/>
+                    <div class='row-fluid'>
+        {% endif %}
+        {% endfor %}
 
-        {% endif%}
-
-      {% endfor %}
-      
-    {% endblock %}
+      {% endblock %}

@@ -13,7 +13,7 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('full_name', self.gf('django.db.models.fields.CharField')(max_length=300, null=True, blank=True)),
             ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
-            ('message', self.gf('django.db.models.fields.CharField')(max_length=500)),
+            ('message', self.gf('django.db.models.fields.TextField')(max_length=500)),
             ('timestamp', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
         ))
         db.send_create_signal(u'contact', ['Contact'])
@@ -30,7 +30,7 @@ class Migration(SchemaMigration):
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
             'full_name': ('django.db.models.fields.CharField', [], {'max_length': '300', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'message': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
+            'message': ('django.db.models.fields.TextField', [], {'max_length': '500'}),
             'timestamp': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
         }
     }
