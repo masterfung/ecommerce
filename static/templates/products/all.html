@@ -14,14 +14,18 @@
     {% block content %}
       
       {% for product in products %}
+        {% cycle '<div class="row"></div>' '' '' '' %}
         <div class="span3">
           {% for image in product.productimage_set.all %}
+          {% if forloop.first %}
             <img src="{{ MEDIA_URL }}{{ image }}" alt="">
+            {% endif %}
           {% endfor %}
-          <h3>{{product}}</h3>
-          <p>{{product.description}}</p>
-          <h4>${{product.price}} Fairy Qits</h4>
+          <h3><a href="{% url 'products' %}{{product.slug}}">{{ product }}</a></h3>
+          <p>{{ product.description }}</p>
+          <h4>${{ product.price }} Fairy Qits</h4>
         </div>
+        {% cycle '' '' '' '</div>' %}
 
       {% endfor %}
       

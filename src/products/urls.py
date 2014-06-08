@@ -3,5 +3,6 @@ from django.conf.urls import patterns, include, url
 
 
 urlpatterns = patterns('products.views',
-    url(r'$', 'all_products', name='products'),
+    url(r'^$', 'all_products', name='products'),
+    url(r'^(?P<slug>.*)/$', 'single_product'),
 )

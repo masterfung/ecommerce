@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+    {% block jumbotron %}
+      
+    {% endblock %}
+      
+      
+    {% block content %}
+      
+        <div class="col-s-12">
+          <h3>{{product}}</h3>
+          {% for image in product.productimage_set.all %}
+            <img src="{{ MEDIA_URL }}{{ image }}" alt="{{image}}">
+          {% endfor %}          
+          <p>{{product.description}}</p>
+          <h4>${{product.price}} Fairy Qits</h4>
+        </div>
+
+
+      
+    {% endblock %}
