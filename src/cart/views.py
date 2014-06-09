@@ -7,6 +7,7 @@ from .models import Cart, CartItem
 from .forms import ProductQtyForm
 
 def add_to_cart(request):
+    request.session.set_expiry(3000) #half an hour
     try:
         cart_id = request.session['cart_id']
     except:
