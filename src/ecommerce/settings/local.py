@@ -7,6 +7,11 @@ ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'Djangorockstar@gmail.com'
+EMAIL_HOST_PASSWORD = 'Djangorockstar#123'
+
 MANAGERS = ADMINS
 
 DATABASES = {
@@ -72,7 +77,11 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
      'django.contrib.admindocs',
      'south',
+     'registration',
      'products',
      'contact',
      'cart',
+     'profiles',
 )
+
+ACCOUNT_ACTIVATION_DAYS = 7

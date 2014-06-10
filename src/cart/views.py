@@ -1,6 +1,6 @@
 # Create your views here.
 from django.shortcuts import render_to_response, HttpResponse, HttpResponseRedirect, RequestContext, Http404
-
+from django.contrib.auth.decorators import login_required
 
 from products.models import Product
 from .models import Cart, CartItem
@@ -33,7 +33,7 @@ def add_to_cart(request):
             except Exception:
                 cart = None
             new_cart, created = CartItem.objects.get_or_create(cart=cart, product=product)
-            if new_cart.quantity > 0:
+            if product_quantity > 0:
                 new_cart.quantity = product_quantity
                 new_cart.total = int(new_cart.quantity) * new_cart.product.price
                 new_cart.save()
@@ -66,6 +66,7 @@ def view(request):
     request.session['cart_items'] = len(cart.cartitem_set.all())
     return render_to_response('cart/view.html', locals(), context_instance=RequestContext(request))
 
+@login_required
 def checkout(request):
     try:
         cart_id = request.session['cart_id']
