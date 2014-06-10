@@ -1,10 +1,14 @@
 # Create your views here.
+import datetime
+
 from django.shortcuts import render_to_response, HttpResponse, HttpResponseRedirect, RequestContext, Http404
 from django.contrib.auth.decorators import login_required
 
+from profiles.models import Profile
 from products.models import Product
 from .models import Cart, CartItem
 from .forms import ProductQtyForm
+
 
 import stripe
 stripe.api_key='sk_test_UZ7gkbevnGjtz2nu3olxTHtU'
@@ -33,6 +37,7 @@ def add_to_cart(request):
             except Exception:
                 cart = None
             new_cart, created = CartItem.objects.get_or_create(cart=cart, product=product)
+            #Below updates quantity
             if product_quantity > 0:
                 new_cart.quantity = product_quantity
                 new_cart.total = int(new_cart.quantity) * new_cart.product.price
@@ -41,48 +46,85 @@ def add_to_cart(request):
                 pass
             if created:
                 print 'Created!'
-            print new_cart.product, new_cart.quantity, new_cart.cart                                    
+            print new_cart.product, new_cart.quantity, new_cart.cart
+            
+            
+            
             return HttpResponseRedirect('/cart/')
         return HttpResponseRedirect('/contact/')
     else:
         raise Http404
 
+
+def add_stripe(user):
+    profile, created = Profile.objects.get_or_create(user=user)
+    if len(profile.stripe_id) > 1:
+        print 'exsits'
+        pass
+    else:
+        new_customer = stripe.Customer.create(
+            email = user.email,
+            description = "Added to stripe on %s" %(datetime.datetime.now())
+        )
+        profile.stripe_id = new_customer.id
+        profile.save()
+    
+    return profile.stripe_id
+
+
+
+
 def view(request):
     try:
         cart_id = request.session['cart_id']
         cart = Cart.objects.get(id=cart_id)
+        request.session['cart_items'] = len(cart.cartitem_set.all())
     except:
         cart = False
 
     if cart == False or cart.active == False:
-        message = 'Your cart is empty!'        
+        message = 'Your cart is empty!'
+        
     if cart and cart.active:
         cart = cart
         cart.total = 0
         for item in cart.cartitem_set.all():
             cart.total += item.total
             cart.save()
-        
-    request.session['cart_items'] = len(cart.cartitem_set.all())
+    
+    try:
+        stripe_id = add_stripe(request.user)
+    except:
+        pass
+
     return render_to_response('cart/view.html', locals(), context_instance=RequestContext(request))
+
+
 
 @login_required
 def checkout(request):
     try:
         cart_id = request.session['cart_id']
-        cart=Cart.objects.get(id=cart_id)
+        cart = Cart.objects.get(id=cart_id)
     except:
         cart = False
     
-    amount = int(cart.total* 100)
-    if request.method == 'POST':
-        token=request.POST['stripeToken']
+    amount = int(cart.total * 100)
+    
+    try:
+        stripe_id = add_stripe(request.user)
+    except:
+        pass
 
+
+    if request.method == "POST":
+        token = request.POST['stripeToken']
+        profile = request.user.get_profile()
         stripe.Charge.create(
-            amount = amount,
-            currency='usd',
-            card=token,
-            description='Payment for Enchanted goods.'
-            )
-
+            amount=amount,
+            currency="usd",
+            card= token,
+            description = "Payment for cart"
+        )
+         
     return render_to_response('cart/checkout.html', locals(), context_instance=RequestContext(request))
