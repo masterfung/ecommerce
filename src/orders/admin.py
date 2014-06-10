@@ -10,10 +10,6 @@ class OrderAdmin(admin.ModelAdmin):
 	def get_readonly_fields(self, request, obj=None):
 		if obj:
 			return ['order_id']
-		return self.get_readonly_fields
-
-	def has_delete_permission(self, request, obj=None):
-		return False
-
+		return self.readonly_fields
 
 admin.site.register(Order, OrderAdmin)

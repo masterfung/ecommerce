@@ -49,11 +49,15 @@
 
 {% block content %}
 
-<div class="span4 offset4">
     <h2>Pay For Your Order</h2>
     <h3>Order Total: {{ cart.total }}</h3>
     <span class="payment-errors"></span>
-    <form action="" method="POST" id="payment-form"> {% csrf_token %}
+    <form action="" method="POST" id="payment-form"> 
+    <div class="span8  pull-left ">
+        {% csrf_token %}
+        {{address_form.as_p}}
+    </div>
+    <div class="span4 pull-right">
         <div class="form-row">
             <label>Card Number</label>
             <input type="text" size="20" autocomplete="off" class="card-number" />
@@ -70,5 +74,5 @@
         </div>
         <button type="submit" class="submit-button btn-info">Submit Payment</button>
     </form>
-</div>
+    </div>
 {% endblock %}

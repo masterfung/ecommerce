@@ -47,7 +47,7 @@ class Profile(models.Model):
     
 class Address(models.Model):
     user = models.ForeignKey(User)
-    nickname = models.CharField(max_length=120, null=True, blank=True)
+    name = models.CharField(max_length=120, null=True, blank=True)
     address1 = models.CharField(max_length=300)
     address2 = models.CharField(max_length=300, null=True, blank=True)
     city = models.CharField(max_length=300)
