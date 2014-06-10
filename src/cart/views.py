@@ -13,7 +13,7 @@ def add_to_cart(request):
     except:
         cart = Cart()
         cart.save()
-        request.session['cart_id'] = cart.id
+        cart.id = request.session['cart_id']
         cart_id = cart.id
 
     if request.method == "POST":
@@ -29,10 +29,29 @@ def add_to_cart(request):
                 cart = Cart.objects.get(id=cart_id)
             except Exception:
                 cart = None
-            new_cart = CartItem(cart=cart, product=product, quantity=product_quantity)
+            new_cart, created = CartItem.objects.get_or_create(cart=cart, product=product)
+            new_cart.quantity = product_quantity
             new_cart.save()
+            if created:
+                print 'Created'
             print new_cart.product, new_cart.quantity, new_cart.cart
             return HttpResponseRedirect('/products/')
         return HttpResponseRedirect('/contact/')
     else:
         raise Http404
+ 
+
+def view(request):
+    try:
+        cart_id = request.session['cart_id']
+        cart = Cart.objects.get(id=cart_id)
+    except Exception:
+        cart = False
+
+    if cart == False or cart.active == False:
+        message = 'Your cart is empty!'
+
+    if cart and cart.active:
+        cart = cart
+
+    return render_to_response('cart/view.html', locals(), context_instance=RequestContext(request))

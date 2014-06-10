@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{{message}}
+{{cart}}
+
+{% for item in cart.cartitem_set.all %}
+	{{item.product}}
+	{{item.quantity}}
+
+{% endfor %}
+
+{% endblock %}
