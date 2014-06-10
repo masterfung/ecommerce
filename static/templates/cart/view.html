@@ -18,8 +18,10 @@
     <th></th>
     <th></th>
     <th>Subtotal:</th>
-    <th>{{ cart.total }}</th>
-    
+    <th>{{ cart.total }}
+    <br><br>
+    <a href="{% url 'checkout' %}" class='btn pull-right'>Checkout</a>
+    </th>
 </tfoot>
 
 </table>

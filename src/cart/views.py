@@ -6,6 +6,9 @@ from products.models import Product
 from .models import Cart, CartItem
 from .forms import ProductQtyForm
 
+import stripe
+stripe.api_key='sk_test_UZ7gkbevnGjtz2nu3olxTHtU'
+
 def add_to_cart(request):
     request.session.set_expiry(0)
     try:
@@ -38,10 +41,7 @@ def add_to_cart(request):
                 pass
             if created:
                 print 'Created!'
-            print new_cart.product, new_cart.quantity, new_cart.cart
-            
-            
-            
+            print new_cart.product, new_cart.quantity, new_cart.cart                                    
             return HttpResponseRedirect('/cart/')
         return HttpResponseRedirect('/contact/')
     else:
@@ -55,8 +55,7 @@ def view(request):
         cart = False
 
     if cart == False or cart.active == False:
-        message = 'Your cart is empty!'
-        
+        message = 'Your cart is empty!'        
     if cart and cart.active:
         cart = cart
         cart.total = 0
@@ -66,3 +65,23 @@ def view(request):
         
     request.session['cart_items'] = len(cart.cartitem_set.all())
     return render_to_response('cart/view.html', locals(), context_instance=RequestContext(request))
+
+def checkout(request):
+    try:
+        cart_id = request.session['cart_id']
+        cart=Cart.objects.get(id=cart_id)
+    except:
+        cart = False
+    
+    amount = int(cart.total* 100)
+    if request.method == 'POST':
+        token=request.POST['stripeToken']
+
+        stripe.Charge.create(
+            amount = amount,
+            currency='usd',
+            card=token,
+            description='Payment for Enchanted goods.'
+            )
+
+    return render_to_response('cart/checkout.html', locals(), context_instance=RequestContext(request))
