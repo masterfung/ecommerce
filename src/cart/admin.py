@@ -8,6 +8,7 @@ class CartAdmin(admin.ModelAdmin):
 
 admin.site.register(Cart, CartAdmin)
 
+
 class CartItemAdmin(admin.ModelAdmin):
     class Meta:
         model = CartItem

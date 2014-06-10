@@ -2,13 +2,28 @@
 
 {% block content %}
 
-{{message}}
-{{cart}}
+{{ message }}
 
+<table class='table'>
+    <thead><th>Item</th><th>Quantity</th><th>Unit Price</th><th>Price</th></thead>
 {% for item in cart.cartitem_set.all %}
-	{{item.product}}
-	{{item.quantity}}
-
+<tr>
+    <td>{{ item.product }}</td>
+    <td>{{ item.quantity }}</td>
+    <td>{{ item.product.price }}</td>
+    <td> {{ item.total }} </td>
+</tr>
 {% endfor %}
+<tfoot>
+    <th></th>
+    <th></th>
+    <th>Subtotal:</th>
+    <th>{{ cart.total }}</th>
+    
+</tfoot>
+
+</table>
+
+
 
 {% endblock %}

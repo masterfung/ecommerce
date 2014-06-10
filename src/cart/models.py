@@ -11,15 +11,16 @@ class Cart(models.Model):
     active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     
-    def __unicode__(self, ):
+    def __unicode__(self):
         return str(self.id)
     
     
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart)
     product = models.ForeignKey(Product)
+    total = models.DecimalField(default=0.00, max_digits=1000, decimal_places=2)
     quantity = models.IntegerField(default=0)
     timestamp = models.DateTimeField(auto_now_add=True)
     
-    def __unicode__(self, ):
+    def __unicode__(self):
         return str(self.cart.id)

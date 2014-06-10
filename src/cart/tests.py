@@ -1,7 +1,3 @@
-from django.conf import settings
-from django.conf.urls import patterns, include, url
+from django.test import TestCase
 
-
-urlpatterns = patterns('cart.views',
-    url(r'^add$', 'add_to_cart'),
-)
+# Create your tests here.
