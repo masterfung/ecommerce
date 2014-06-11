@@ -137,14 +137,34 @@ def checkout(request):
         address_form = AddressForm(request.POST)
         token = request.POST['stripeToken']
         profile = request.user.get_profile()
-        stripe.Charge.create(
-            amount=amount,
-            currency="usd",
-            card= token,
-            description = "Payment for cart"
-        )
+        customer = stripe.Customer.retrieve(stripe_id)
+        new_card = customer.cards.create (card=token)
+
         if address_form.is_valid():
-            form = address_formsave(commit=False)
+            form = address_form.save(commit=False)
             print form
-         
+            if address_form.cleaned_data['save_card'] == True:
+                #save card info
+                new_card.address_line1 = form.address1
+                if len(form.address2) > 1:
+                    new_card.address_line2 = form.address2
+                new_card.address_city = form.city
+                new_card.address_zip = form.postal_code
+                new_card.address_country = form.country
+                new_card.save()
+                try:
+                    form.user = request.user
+                    form.save()
+                    print 'form saved'
+                except:
+                    pass
+            else:
+                print 'did not save your card'
+
+            stripe.Charge.create(
+                amount=amount,
+                currency="usd",
+                customer= customer.id,
+                description = "Payment for order %s" %(new_order.order_id)
+            )
     return render_to_response('cart/checkout.html', locals(), context_instance=RequestContext(request))
