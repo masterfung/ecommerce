@@ -14,15 +14,15 @@
       
       {% block content %}
       
-          
+          <div class='row'>
       {% for product in products %}
       
-        <div class='col-lg-4'>
+        <div class='col-lg-3'>
           
           <h3><a href='{% url "products" %}{{ product.slug }}'>{{ product }}</a></h3>
                     {% for image in product.productimage_set.all %}
                       {% if forloop.first %}
-            <a href='{% url "products" %}{{ product.slug }}'><img src='{{ MEDIA_URL }}{{ image }}' class='img-responsive'></a>
+            <a href='{% url "products" %}{{ product.slug }}'><img src='{{ MEDIA_URL }}{{ image }}' class="img-responsive"/></a>
             {% endif %}
             {% endfor %}
           {{ product.description|truncatewords:10 }}<br/>
@@ -32,8 +32,8 @@
         </div>
         {% if forloop.counter|divisibleby:4 %}
                     </div> <hr/>
-                    <div class='row-fluid'>
+                    <div class='row'>
         {% endif %}
         {% endfor %}
-
+  </div>
       {% endblock %}
