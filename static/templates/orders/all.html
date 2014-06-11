@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<table>
+	<th>Orders</th>
+	{% for order in orders  %}
+	{% if order.status == 'Collected' %}
+		<tr><td> {{order}}</td></tr>
+	{% endif %}
+	{% endfor %}
+</table>
+	
+{% endblock content %}

@@ -24,3 +24,19 @@ class Order(models.Model):
 
     def __unicode__(self, ):
         return "Order number is %s" %(self.order_id)
+
+SHIPPING_STATUS = (
+    'Not Shipped', 'Not Shipped'
+    'Shipping Soon', 'Shipping Soon'
+    'Shipped', 'Shipped'
+    )
+
+class OrderShipmentStatus(models.Model):
+    order = models.ForeignKey(Order)
+    status = models.CharField(max_length=120, default='Not Shipped', choices='SHIPPING_STATUS')
+    tracking_number = models.CharField(max_length=200, null=True, blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True, auto_now=False)
+     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+
+     def __unicode__(self):
+        return self.status
