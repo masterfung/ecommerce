@@ -46,14 +46,14 @@
                     <form method='POST' action='/cart/add' class='pull-right'> {% csrf_token %}
                     <input type='hidden' name='slug' id='id_slug' value='{{product.slug }}' />
                     <input type='number' name='quantity' id='id_quantity' value='1' placeholder='Qty' required='required' style='width:40px;float:left;'/>
-                        <input class=' btn pull-right' type='submit' value='Add to Cart'/>
+                        <input class='sm-space btn pull-right' type='submit' value='Add to Cart'/>
                     </form>
                     
                 </div>
                  
                  </div>
                  <hr/>
-                 <h4> {{ product.price }}</h4>
+                 <h4> ${{ product.price }}</h4>
                     <p>{{ product.description }}</p>
         </div>
         
