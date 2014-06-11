@@ -15,3 +15,12 @@ def single_product(request, slug):
     product = get_object_or_404(Product, slug=slug)
     return render_to_response('products/single.html', locals(), context_instance=RequestContext(request))
 
+def search(request):
+	try:
+		q = request.GET.get('q', '')
+	except:
+		q = False
+
+	if q:
+		print q
+	return render_to_response('products/search.html', locals(), context_instance=RequestContext(request))
