@@ -2,8 +2,15 @@
 
 {% block content %}
 
-{{ message }}
 
+{% if message %}
+    <div class='row'>
+<div class='col-lg-4 col-offset-4'>
+<h1>{{ message }}</h1>
+<p style='text-align: center'>Keep <a href='/products/'>shopping</a></p>
+</div>
+</div>
+{% else %}
 <table class='table'>
     <thead><th>Item</th><th>Quantity</th><th>Unit Price</th><th>Price</th></thead>
 {% for item in cart.cartitem_set.all %}
@@ -18,14 +25,15 @@
     <th></th>
     <th></th>
     <th>Subtotal:</th>
-    <th>{{ cart.total }}
-    <br><br>
-    <a href="{% url 'checkout' %}" class='btn pull-right'>Checkout</a>
+    <th>{{ cart.total }} <br/><br/>
+    
+    <a href='{% url "checkout" %}' class='btn btn-warning'>Checkout</a>
     </th>
+    
 </tfoot>
 
 </table>
 
+{% endif %}
 
-
-{% endblock %}
+{% endblock content%}

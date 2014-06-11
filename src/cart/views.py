@@ -115,6 +115,7 @@ def checkout(request):
         cart = Cart.objects.get(id=cart_id)
     except:
         cart = False
+        return HttpResponseRedirect('/cart')
     
     amount = int(cart.total * 100)
     

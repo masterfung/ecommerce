@@ -1,17 +1,5 @@
-body {
-  padding-top: 70px;
-  padding-bottom: 30px;
-}
-
-.theme-dropdown .dropdown-menu {
-  position: static;
-  display: block;
-  margin-bottom: 20px;
-}
-
-.theme-showcase > p > .btn {
-  margin: 5px 0;
-}
+/* User Styles styles
+-------------------------------------------------- */
 
 #id_fullname {
 	width:100%;
@@ -25,32 +13,18 @@ body {
 	width:100%;
 }
 
-.to-right {
-  float:right;
+.row {
+  margin-top: 25px;
 }
 
-
-/* Sticky footer styles
--------------------------------------------------- */
-
-html,
-body {
-  height: 100%;
-  /* The html and body elements cannot have any padding or margin. */
+.body-content {
+  margin-top: 25px;
 }
 
-/* Wrapper for page content to push down footer */
-#wrap {
-  min-height: 100%;
-  height: auto;
-  /* Negative indent footer by its height */
-  margin: 0 auto -60px;
-  /* Pad bottom by footer height */
-  padding: 0 0 60px;
+.sm-space {
+  margin-left: 10px;
 }
 
-/* Set the fixed height of the footer here */
-#footer {
-  height: 60px;
-  background-color: #fff;
+.navbar-inverse .navbar-nav>li>a {
+	color:#fff;
 }
