@@ -4,7 +4,7 @@ import datetime
 from django.shortcuts import render_to_response, HttpResponse, HttpResponseRedirect, RequestContext, Http404
 from django.contrib.auth.decorators import login_required
 
-from orders.models import Order
+from orders.models import Order, ShippingStatus
 from orders.custom import id_generator
 
 from profiles.forms import AddressForm
@@ -173,10 +173,12 @@ def checkout(request):
                 new_order.cc_four = new_card.last4
                 new_order.address = form
                 new_order.save()
+                add_shipping = ShippingStatus(order = new_order)
+                add_shipping.save()
                 cart.user = request.user #users need to be logged in for this to work
                 cart.active = False
                 cart.save()
                 del request.session['cart_id']
                 del request.session['cart_items']
-                return HttpResponseRedirect('/products/')
+                return HttpResponseRedirect('/orders/')
     return render_to_response('cart/checkout.html', locals(), context_instance=RequestContext(request))

@@ -6,7 +6,9 @@
 	<th>Orders</th>
 	{% for order in orders  %}
 	{% if order.status == 'Collected' %}
-		<tr><td> {{order}}</td></tr>
+		<tr><td> {{order}} {% for item in order.shippingstatus_set.all %} {{ item }}
+			
+		{% endfor %}</td></tr>
 	{% endif %}
 	{% endfor %}
 </table>

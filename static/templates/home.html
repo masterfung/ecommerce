@@ -1,5 +1,64 @@
 {% extends 'base.html' %}
 
 {% block jumbotron %}
+
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="http://www.magicwandstore.com/images/wands/sodalite_wand.jpg" alt="Malificent">
+      <div class="carousel-caption">
+        <h3>Active Enchanted World</h3>
+        <p>Wonders awaits beyond the magic</p>
+      </div>
+    </div>
+
+    <div class="item">
+      <img src="http://2.bp.blogspot.com/-Qxi45al1VC8/UZvy-jz41KI/AAAAAAAAAG8/fuy_1xtWFb4/s1600/Magic_Book_by_iLeeh95.png">
+      <div class="carousel-caption">
+        <h3>Relics</h3>
+        <p>Powerful relics that works!</p>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
 	
 {% endblock jumbotron %}
+
+{% block content %}
+
+<div class='row'>
+    <div class='span4'>
+        <h1>Header 1</h1>
+        <p>Some text about header 1 and/or feature one. This is likely where you will explain a beneift to your product(s).</p>
+    </div>
+        <div class='span4'>
+        <h1>Header 1</h1>
+        <p>Some text about header 1 and/or feature one. This is likely where you will explain a beneift to your product(s).</p>
+    </div>
+        <div class='span4'>
+        <h1>Header 1</h1>
+        <p>Some text about header 1 and/or feature one. This is likely where you will explain a beneift to your product(s).</p>
+    </div>
+    
+    
+    
+</div>
+
+{% endblock content %}

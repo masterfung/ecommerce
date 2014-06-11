@@ -38,15 +38,15 @@
       </div>   
       {% include 'navbar.html' %} 
 
-        {% block jumbotron %}
-        
-        {% endblock %}
+      {% block jumbotron %}
+      
+      {% endblock jumbotron%}
 
       <!-- Example row of columns -->
-       <div class="row-fluid">
+      <div class="row-fluid">
         {% block content %}
-        {% endblock %}
-       </div>
+        {% endblock content %}
+      </div>
     
       
 
@@ -70,5 +70,13 @@
 
     {% block javascript-stripe %}
     {% endblock %}
+    <script type='text/javascript'>
+      $(document).ready(
+          function{
+            {% block jquery %}
+              
+            {% endblock jquery %}
+          });
+            </script>
   </body>
 </html>
