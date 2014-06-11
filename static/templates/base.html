@@ -31,10 +31,12 @@
     <div class="container">
 
       <div class="masthead">
-        <h3 class="muted">Enchanted</h3>
-        {% include 'navbar.html' %}
+        <h3><a href="{% url 'home' %}">Enchanted</a><a href="/accounts/login/"><span class="btn-success pull-right">Log In</span></a></h3>
 
-      </div>    
+        
+
+      </div>   
+      {% include 'navbar.html' %} 
 
         {% block jumbotron %}
         
