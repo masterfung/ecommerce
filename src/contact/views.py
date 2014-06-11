@@ -10,7 +10,7 @@ def contact_us(request):
     form = ContactForm(request.POST or None)
     if form.is_valid():
         save_form = form.save(commit=False)
-        send = send_mail('Message from eCommerce Project:', str(save_form.message), str(save_form.email), ['djangorockstar@gmail.com'], fail_silently = True)
+        send = send_mail('Message from Enchanted:', str(save_form.message), str(save_form.email), ['Djangorockstar@gmail.com'], fail_silently = True)
         save_form.save()
         
     return render_to_response('contact/contact_us.html', locals(), context_instance=RequestContext(request))

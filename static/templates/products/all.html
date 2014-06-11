@@ -22,7 +22,7 @@
           <h3><a href='{% url "products" %}{{ product.slug }}'>{{ product }}</a></h3>
                     {% for image in product.productimage_set.all %}
                       {% if forloop.first %}
-            <a href='{% url "products" %}{{ product.slug }}'><img src='{{ MEDIA_URL }}{{ image }}'/></a>
+            <a href='{% url "products" %}{{ product.slug }}'><img src='{{ MEDIA_URL }}{{ image }}' class='img-responsive'></a>
             {% endif %}
             {% endfor %}
           {{ product.description|truncatewords:10 }}<br/>
