@@ -18,5 +18,6 @@ urlpatterns = patterns('',
     url(r'^cart/', include('cart.urls')),
     (r'^accounts/', include('registration.backends.default.urls')),
     url(r'^contact/', 'contact.views.contact_us', name='contact_us'),
+    url(r'^$', 'contact.views.home', name='home'),
     url(r'^checkout/', 'cart.views.checkout', name='checkout'),
 )

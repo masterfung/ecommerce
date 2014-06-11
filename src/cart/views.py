@@ -161,10 +161,22 @@ def checkout(request):
             else:
                 print 'did not save your card'
 
-            stripe.Charge.create(
+            charge = stripe.Charge.create(
                 amount=amount,
                 currency="usd",
                 customer= customer.id,
                 description = "Payment for order %s" %(new_order.order_id)
             )
+            if charge:
+                print 'charged'
+                new_order.status = 'Collected' #changes the status in the admin panel! :)
+                new_order.cc_four = new_card.last4
+                new_order.address = form
+                new_order.save()
+                cart.user = request.user #users need to be logged in for this to work
+                cart.active = False
+                cart.save()
+                del request.session['cart_id']
+                del request.session['cart_items']
+                return HttpResponseRedirect('/products/')
     return render_to_response('cart/checkout.html', locals(), context_instance=RequestContext(request))
