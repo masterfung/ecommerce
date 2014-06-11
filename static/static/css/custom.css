@@ -25,7 +25,9 @@ body {
 	width:100%;
 }
 
-
+.to-right {
+  float:right;
+}
 
 
 /* Sticky footer styles
@@ -48,7 +50,7 @@ body {
 }
 
 /* Set the fixed height of the footer here */
-#footer {
+footer {
   height: 60px;
   background-color: #fff;
 }

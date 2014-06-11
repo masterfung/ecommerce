@@ -17,7 +17,7 @@
           
       {% for product in products %}
       
-        <div class='span3'>
+        <div class='col-lg-4'>
           
           <h3><a href='{% url "products" %}{{ product.slug }}'>{{ product }}</a></h3>
                     {% for image in product.productimage_set.all %}
