@@ -21,6 +21,15 @@ def search(request):
 	except:
 		q = False
 
-	if q:
-		print q
+	if q: #iterable search method
+		k = q.split()
+		if len(k) >=2:
+			products = []
+			for i in k:
+				all_products = Product.objects.filter(title__icontains=i).distinct()
+				for product in all_products:
+					if product not in products:
+						products.append(product)
+		else:
+			products = Product.objects.filter(title__icontains=q) #icontains is not case sensitive
 	return render_to_response('products/search.html', locals(), context_instance=RequestContext(request))

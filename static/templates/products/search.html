@@ -2,5 +2,16 @@
 
 
 {% block content %}
-	{{ q }}
+<div class="pull-right">
+	<form action="/search/">
+		<input type="text" name='q' placeholder='Search for Products' >
+			<input type="submit" value='Search' class='btn btn-default'>
+	</form>
+</div>
+	<h3>Searched for: {{ q }}</h3>
+
+	{% for product in products %}
+		<li>{{product}}</li>
+	{% endfor %}
+	
 {% endblock content %}
