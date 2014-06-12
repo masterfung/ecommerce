@@ -66,9 +66,8 @@
             {% endblock javascript-stripe %}
     </script>
         <script type="text/javascript">
-          $(document).ready(
-                            function(){
-                               {% block jquery %}{% endblock %}           
+          $(document).ready(function(){
+                  {% block jquery %}{% endblock jquery%}           
               });
            
       </script>

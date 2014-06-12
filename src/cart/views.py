@@ -1,5 +1,5 @@
 # Create your views here.
-import datetime
+import datetime, json
 
 from django.shortcuts import render_to_response, HttpResponse, HttpResponseRedirect, RequestContext, Http404
 from django.contrib.auth.decorators import login_required
@@ -16,9 +16,46 @@ from .models import Cart, CartItem
 from .forms import ProductQtyForm
 
 
-
 import stripe
 stripe.api_key='sk_test_UZ7gkbevnGjtz2nu3olxTHtU'
+
+
+def add_ajax(request):
+    if request.is_ajax() and request.POST:
+        print 'works'
+        request.session.set_expiry(0)
+        try:
+            cart_id = request.session['cart_id']
+        except:
+            cart = Cart()
+            cart.save()
+            request.session['cart_id'] = cart.id
+            cart_id = cart.id
+
+        product_slug = request.POST['product_slug']
+        product_quantity = request.POST['product_quantity']
+        try:
+            product = Product.objects.get(slug=product_slug)
+        except Exception:
+            product = None
+        try:
+            cart = Cart.objects.get(id=cart_id)
+        except Exception:
+            cart = None
+        new_cart, created = CartItem.objects.get_or_create(cart=cart, product=product)
+        #Below updates quantity
+        if product_quantity > 0:
+            new_cart.quantity = product_quantity
+            new_cart.total = int(new_cart.quantity) * new_cart.product.price
+            new_cart.save()
+            request.session['cart_items'] = len(cart.cartitem_set.all())
+            badge = len(cart.cartitem_set.all())
+            
+
+        new_data = json.dumps(badge)
+        return HttpResponse(new_data, content_type='application/json')
+    else:
+        raise Http404
 
 def add_to_cart(request):
     request.session.set_expiry(0)
