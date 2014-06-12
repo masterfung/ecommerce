@@ -4,7 +4,7 @@ from django.db import models
 
 class ProductManager(models.Manager):
     def all(self):
-        return super(ProductManager, self).filter(active=True).exclude(price=True).exclude(price=0)
+        return super(ProductManager, self).filter(active=True).exclude(price=True).exclude(price=0).exclude(description='')
 
 class Product(models.Model):
     title = models.CharField(max_length=220)
